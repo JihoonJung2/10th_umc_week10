@@ -12,11 +12,15 @@ export interface AddStoreRequestDTO {
   foodCategory: StoreFoodCategory;
 }
 
-// 응답 타입을 정의 
+// 응답 타입을 정의
 export interface StoreResponseDTO {
+  /** @example 1 */
   id: number;
+  /** @example "맛있는 가게" */
   name: string;
-  region: string; 
+  /** @example "서울" */
+  region: string;
+  /** @example "KOREAN" */
   foodCategory: StoreFoodCategory;
 }
 

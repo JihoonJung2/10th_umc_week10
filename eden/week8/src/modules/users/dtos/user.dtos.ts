@@ -49,8 +49,11 @@ export interface UserDto {
   phoneNumber: string | null;
 }
 export interface UserSignUpResponse {
+  /** @example "example@naver.com" */
   email: string | null;
+  /** @example "홍길동" */
   name: string | null;
+  /** @example [1, 2] */
   preferCategory: number[]; // foodCategoryId 목록
 }
 

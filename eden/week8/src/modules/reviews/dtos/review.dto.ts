@@ -23,12 +23,18 @@ export interface StoreResponseDto {
 
 // 응답 데이터의 단일 리뷰 항목 타입 정의
 export interface MyReview {
+  /** @example 1 */
   id: number;
+  /** @example 4 */
   rating: number;
+  /** @example "맛있어요!" */
   comment: string;
+  /** @example "2024-01-01T00:00:00.000Z" */
   createdAt: Date;
   store: {
+    /** @example 1 */
     id: number;
+    /** @example "맛있는 가게" */
     name: string;
   };
 }
@@ -60,18 +66,23 @@ reviews: ReviewItem[]): ReviewListResponse => {
     };
   };
 export interface ReviewItem {
+  /** @example 1 */
   id: number;
+  /** @example "정말 맛있어요!" */
   comment: string;
   store: {
+    /** @example "맛있는 가게" */
     name: string;
   };
   user: {
+    /** @example "홍길동" */
     name: string;
   };
 }
 export interface ReviewListResponse {
   data: ReviewItem[];
   pagination: {
+    /** @example 5 */
     cursor: number | null; // 다음 페이지를 위한 커서 (마지막 리뷰의 ID)
   };
 }

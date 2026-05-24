@@ -20,7 +20,7 @@ export class StoreController {
    */
 
 @Post("{regionId}")
-  @SuccessResponse(StatusCodes.CREATED, "Created")
+  @SuccessResponse(StatusCodes.CREATED, "성공")
    @Response<StoreErrorResponse>(422, "잘못된 요청(유효성 검증 실패")
   @Response<StoreErrorResponse>(409, "이미 존재하는 가게입니다")
   @Response<StoreErrorResponse>(500, "서버 내부 오류")

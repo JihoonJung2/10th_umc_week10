@@ -29,18 +29,27 @@ export interface ListStoreMissionsRequestParams {
 export type ListStoreMissionsResponse = handleMission[];
 
 export interface handleMission {
-    id: number;
-    point: number;
-    content: string;
-    expireAt: Date;
+  /** @example 1 */
+  id: number;
+  /** @example 100 */
+  point: number;
+  /** @example "가게 방문하기" */
+  content: string;
+  /** @example "2024-12-31T23:59:59.000Z" */
+  expireAt: Date;
 }
 
 //진행중인 미션 데이터 타입정의
 export interface handleUserMission {
+  /** @example 1 */
   id: number;
+  /** @example "맛있는 가게" */
   storeName: string;
+  /** @example "가게 방문하기" */
   content: string;
-  point: number; 
+  /** @example 100 */
+  point: number;
+  /** @example "2024-12-31T23:59:59.000Z" */
   expireAt: Date;
 }
 //최종 응답 데이터

@@ -25,7 +25,7 @@ export class MissionController extends Controller {
    
    */
   @Post("stores/{storeId}")
-  @SuccessResponse(StatusCodes.CREATED, "Created")
+  @SuccessResponse(StatusCodes.CREATED, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")
@@ -49,7 +49,7 @@ export class MissionController extends Controller {
    
    */
   @Get("stores/{storeId}")
-@SuccessResponse(StatusCodes.OK, "Success")
+@SuccessResponse(StatusCodes.OK, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")
@@ -70,7 +70,7 @@ export class MissionController extends Controller {
    
    */
   @Post("users/{userId}/{missionId}")
-  @SuccessResponse(StatusCodes.CREATED, "Success")
+  @SuccessResponse(StatusCodes.CREATED, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")
@@ -93,7 +93,7 @@ export class MissionController extends Controller {
    
    */
   @Get("users/{userId}/challenging")
-    @SuccessResponse(StatusCodes.OK, "Success")
+    @SuccessResponse(StatusCodes.OK, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")
@@ -115,7 +115,7 @@ export class MissionController extends Controller {
    
    */
   @Patch("users/{userId}/{missionId}")
-    @SuccessResponse(StatusCodes.OK, "Success")
+    @SuccessResponse(StatusCodes.OK, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")
@@ -137,7 +137,7 @@ export class MissionController extends Controller {
    
    */
   @Get("users/{userId}/completed")
-    @SuccessResponse(StatusCodes.OK, "Success")
+    @SuccessResponse(StatusCodes.OK, "성공")
 
     @Response<MissionErrorResponse>(404, "정보가 유효하지 않습니다")
     @Response<MissionErrorResponse>(422, "잘못된 요청")

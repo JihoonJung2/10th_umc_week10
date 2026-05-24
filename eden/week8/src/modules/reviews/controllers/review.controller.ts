@@ -18,11 +18,12 @@ export class ReviewController extends Controller {
    
    */
   @Post("{storeId}")
-  @SuccessResponse(StatusCodes.CREATED, "Created")
+  @SuccessResponse(StatusCodes.CREATED, "성공")
   @Response<ReviewErrorResponse>(404, "정보가 유효하지 않습니다")
   @Response<ReviewErrorResponse>(422, "잘못된 요청(유효성 검증 실패")
     @Response<ReviewErrorResponse>(409, "이미 존재하는 리뷰입니다")
     @Response<ReviewErrorResponse>(500, "서버 내부 오류")
+    
   public async addReview(
     @Path() storeId: number,
     @Body() reviewData: AddReviewRequestDTO
@@ -43,7 +44,7 @@ export class ReviewController extends Controller {
    */
   
   @Get("my")
-   @SuccessResponse(StatusCodes.OK, "Success")
+   @SuccessResponse(StatusCodes.OK, "성공")
   @Response<ReviewErrorResponse>(404, "정보가 유효하지 않습니다")
   @Response<ReviewErrorResponse>(422, "잘못된 요청(유효성 검증 실패")
     @Response<ReviewErrorResponse>(500, "서버 내부 오류")
@@ -63,7 +64,7 @@ export class ReviewController extends Controller {
    
    */
   @Get("{storeId}")
-    @SuccessResponse(StatusCodes.OK, "Success")
+    @SuccessResponse(StatusCodes.OK, "성공")
   @Response<ReviewErrorResponse>(404, "정보가 유효하지 않습니다")
   @Response<ReviewErrorResponse>(422, "잘못된 요청(유효성 검증 실패")
     @Response<ReviewErrorResponse>(500, "서버 내부 오류")

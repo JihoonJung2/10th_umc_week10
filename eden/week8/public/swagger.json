@@ -11,18 +11,24 @@
 				"properties": {
 					"email": {
 						"type": "string",
-						"nullable": true
+						"nullable": true,
+						"example": "example@naver.com"
 					},
 					"name": {
 						"type": "string",
-						"nullable": true
+						"nullable": true,
+						"example": "홍길동"
 					},
 					"preferCategory": {
 						"items": {
 							"type": "number",
 							"format": "double"
 						},
-						"type": "array"
+						"type": "array",
+						"example": [
+							1,
+							2
+						]
 					}
 				},
 				"required": [
@@ -64,11 +70,13 @@
 			"UserErrorResponse": {
 				"properties": {
 					"success": {
-						"type": "boolean"
+						"type": "boolean",
+						"example": false
 					},
 					"statusCode": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 409
 					},
 					"data": {
 						"type": "number",
@@ -174,16 +182,20 @@
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 1
 					},
 					"name": {
-						"type": "string"
+						"type": "string",
+						"example": "맛있는 가게"
 					},
 					"region": {
-						"type": "string"
+						"type": "string",
+						"example": "서울"
 					},
 					"foodCategory": {
-						"$ref": "#/components/schemas/StoreFoodCategory"
+						"$ref": "#/components/schemas/StoreFoodCategory",
+						"example": "KOREAN"
 					}
 				},
 				"required": [
@@ -226,11 +238,13 @@
 			"StoreErrorResponse": {
 				"properties": {
 					"success": {
-						"type": "boolean"
+						"type": "boolean",
+						"example": false
 					},
 					"statusCode": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 409
 					},
 					"data": {
 						"type": "number",
@@ -308,11 +322,13 @@
 			"ReviewErrorResponse": {
 				"properties": {
 					"success": {
-						"type": "boolean"
+						"type": "boolean",
+						"example": false
 					},
 					"statusCode": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 404
 					},
 					"data": {
 						"type": "number",
@@ -362,27 +378,33 @@
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 1
 					},
 					"rating": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 4
 					},
 					"comment": {
-						"type": "string"
+						"type": "string",
+						"example": "맛있어요!"
 					},
 					"createdAt": {
 						"type": "string",
-						"format": "date-time"
+						"format": "date-time",
+						"example": "2024-01-01T00:00:00.000Z"
 					},
 					"store": {
 						"properties": {
 							"name": {
-								"type": "string"
+								"type": "string",
+								"example": "맛있는 가게"
 							},
 							"id": {
 								"type": "number",
-								"format": "double"
+								"format": "double",
+								"example": 1
 							}
 						},
 						"required": [
@@ -437,15 +459,18 @@
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 1
 					},
 					"comment": {
-						"type": "string"
+						"type": "string",
+						"example": "정말 맛있어요!"
 					},
 					"store": {
 						"properties": {
 							"name": {
-								"type": "string"
+								"type": "string",
+								"example": "맛있는 가게"
 							}
 						},
 						"required": [
@@ -456,7 +481,8 @@
 					"user": {
 						"properties": {
 							"name": {
-								"type": "string"
+								"type": "string",
+								"example": "홍길동"
 							}
 						},
 						"required": [
@@ -487,7 +513,8 @@
 							"cursor": {
 								"type": "number",
 								"format": "double",
-								"nullable": true
+								"nullable": true,
+								"example": 5
 							}
 						},
 						"required": [
@@ -571,11 +598,13 @@
 			"MissionErrorResponse": {
 				"properties": {
 					"success": {
-						"type": "boolean"
+						"type": "boolean",
+						"example": false
 					},
 					"statusCode": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 404
 					},
 					"data": {
 						"type": "number",
@@ -618,18 +647,22 @@
 				"properties": {
 					"id": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 1
 					},
 					"point": {
 						"type": "number",
-						"format": "double"
+						"format": "double",
+						"example": 100
 					},
 					"content": {
-						"type": "string"
+						"type": "string",
+						"example": "가게 방문하기"
 					},
 					"expireAt": {
 						"type": "string",
-						"format": "date-time"
+						"format": "date-time",
+						"example": "2024-12-31T23:59:59.000Z"
 					}
 				},
 				"required": [
@@ -901,7 +934,7 @@
 				"operationId": "AddStore",
 				"responses": {
 					"201": {
-						"description": "Created",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -978,7 +1011,7 @@
 				"operationId": "AddReview",
 				"responses": {
 					"201": {
-						"description": "Created",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1061,7 +1094,7 @@
 				"operationId": "ListStoreReviews",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1136,7 +1169,7 @@
 				"operationId": "ListMyReviews",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1201,7 +1234,7 @@
 				"operationId": "AddMission",
 				"responses": {
 					"201": {
-						"description": "Created",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1274,7 +1307,7 @@
 				"operationId": "ListStoreMissions",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1339,7 +1372,7 @@
 				"operationId": "ChallengeMission",
 				"responses": {
 					"201": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1412,7 +1445,7 @@
 				"operationId": "CompleteMission",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1487,7 +1520,7 @@
 				"operationId": "ListUserChallengingMissions",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
@@ -1552,7 +1585,7 @@
 				"operationId": "ListUserCompletedMissions",
 				"responses": {
 					"200": {
-						"description": "Success",
+						"description": "성공",
 						"content": {
 							"application/json": {
 								"schema": {
