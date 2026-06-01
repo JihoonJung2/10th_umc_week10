@@ -24,6 +24,12 @@ jobs:
         run: echo "$EC2_DOT_ENV" > .env
         env:
           EC2_DOT_ENV: ${{ secrets.EC2_DOT_ENV }}
+      - name: Check env file
+        run: cat .env
+      - name: Inject environment variables
+        run: echo "$EC2_DOT_ENV" > .env
+        env:
+          EC2_DOT_ENV: ${{ secrets.EC2_DOT_ENV }}
       - name: Generate + Build
         run: npx prisma generate&&npm run build
       - name: Prune devDependencies (runtime) + Regenerate
