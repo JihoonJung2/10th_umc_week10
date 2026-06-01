@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: eden/week10
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
