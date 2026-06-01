@@ -1,6 +1,6 @@
 
 import { prisma } from "../../../db.config.js";
-import { UserPreferenceItemDto } from "../dtos/user.dtos.js";
+import { UserDto, UserPreferenceItemDto } from "../dtos/user.dtos.js";
 // User 데이터 삽입 (이메일 중복 체크 포함)
 export const addUser = async (data: any): Promise<number | null> => {
   try {
@@ -34,11 +34,22 @@ export const addUser = async (data: any): Promise<number | null> => {
 };
 
 // 사용자 정보 얻기 
-export const getUser = async (userId: number) => {
+export const getUser = async (userId: number): Promise<UserDto> => {
 
-  return await prisma.user.findFirstOrThrow({ 
+  const user = await prisma.user.findFirstOrThrow({ 
     where: { id: userId } 
   });
+  return  {
+    id: Number(user.id),
+    email: user.email ,
+    name: user.name ,
+    gender: user.gender ,
+    birth: user.birth,
+    address: user.address,
+    detailAddress: user.detailAddress,
+    phoneNumber: user.phoneNumber,
+  
+  };
 };
 
 // 음식 선호 카테고리 매핑

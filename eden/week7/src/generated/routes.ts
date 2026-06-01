@@ -50,19 +50,30 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ApiResponse__id-any--name-any--region-any--foodCategory-any__": {
+    "StoreFoodCategory": {
+        "dataType": "refAlias",
+        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["KOREAN"]},{"dataType":"enum","enums":["CHINESE"]},{"dataType":"enum","enums":["JAPANESE"]},{"dataType":"enum","enums":["WESTERN"]}],"validators":{}},
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "StoreResponseDTO": {
         "dataType": "refObject",
         "properties": {
-            "resultType": {"dataType":"enum","enums":["SUCCESS"],"required":true},
-            "error": {"dataType":"enum","enums":[null],"required":true},
-            "data": {"dataType":"nestedObjectLiteral","nestedProperties":{"foodCategory":{"dataType":"any","required":true},"region":{"dataType":"any","required":true},"name":{"dataType":"any","required":true},"id":{"dataType":"any","required":true}},"required":true},
+            "id": {"dataType":"double","required":true},
+            "name": {"dataType":"string","required":true},
+            "region": {"dataType":"string","required":true},
+            "foodCategory": {"ref":"StoreFoodCategory","required":true},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "StoreFoodCategory": {
-        "dataType": "refAlias",
-        "type": {"dataType":"union","subSchemas":[{"dataType":"enum","enums":["KOREAN"]},{"dataType":"enum","enums":["CHINESE"]},{"dataType":"enum","enums":["JAPANESE"]},{"dataType":"enum","enums":["WESTERN"]}],"validators":{}},
+    "ApiResponse_StoreResponseDTO_": {
+        "dataType": "refObject",
+        "properties": {
+            "resultType": {"dataType":"enum","enums":["SUCCESS"],"required":true},
+            "error": {"dataType":"enum","enums":[null],"required":true},
+            "data": {"ref":"StoreResponseDTO","required":true},
+        },
+        "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
     "AddStoreRequestDTO": {

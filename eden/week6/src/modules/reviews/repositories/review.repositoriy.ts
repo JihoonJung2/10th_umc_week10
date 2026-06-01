@@ -1,14 +1,14 @@
 import { prisma } from "../../../db.config.js";
-import { ReviewItem, StoreResponseDto } from "../dtos/review.dto.js";
+import { AddReviewRequestDTO, MyReview, ReviewItem, StoreResponseDto } from "../dtos/review.dto.js";
 
 
 //  리뷰를 데이터베이스에 추가하는 함수
-export const addReview = async (storeId: number, userId: number, data: any): Promise<number> => {
+export const addReview = async (storeId: number, data:AddReviewRequestDTO): Promise<number> => {
   try {
     const newReview = await prisma.review.create({
       data: {
-        store_id: storeId, 
-        user_id: userId,   
+        storeId: storeId, 
+        userId: data.userId,   
         rating: data.rating,
         comment: data.comment,
       },
@@ -44,7 +44,7 @@ export const getStoreById = async (storeId: number): Promise <StoreResponseDto |
     return {
       id: Number(store.id),
       name: store.name,
-      food_category: store.food_category,
+      food_category: store.foodCategory,
       region_name: store.region?.name, 
     };
   } catch (err) {
@@ -57,20 +57,38 @@ export const getStoreById = async (storeId: number): Promise <StoreResponseDto |
 
 
 // 특정 사용자가 작성한 리뷰 목록을 가게 정보와 함께 조회
-export const getReviewsByUserId = async (userId: number) => {
-    
-    return await prisma.review.findMany({
-        where: {
-            user_id: userId,
-        },
-        include: {
-            store: true, 
-        },
-        orderBy: {
-            created_at: 'desc', // 최신순으로 정렬
-        }
+export const getReviewsByUserId = async (userId: number): Promise<MyReview[]> => {
+  try {
+    const reviews = await prisma.review.findMany({
+      where: {
+        // userId가 BigInt이므로 변환
+        userId: BigInt(userId),
+      },
+      include: {
+        store: true, 
+      },
+      orderBy: {
+        createdAt: 'desc', // 최신순으로 정렬
+      }
     });
-}
+
+    // Prisma에서 가져온 원본 데이터를 MyReview 인터페이스 형태에 맞게 매핑(Mapping)
+    return reviews.map((review) => ({
+      id: Number(review.id), // BigInt -> number
+      rating: review.rating,
+      comment: review.comment ?? "", // 값이 null일 경우 빈 문자열로 처리
+      createdAt: review.createdAt ?? new Date(), // null일 경우 기본 날짜 지정
+      store: {
+        id: Number(review.store.id), // BigInt -> number
+        name: review.store.name,
+      }
+    }));
+  } catch (err) {
+    throw new Error(`사용자 리뷰 목록 조회 중 오류 발생: ${err}`);
+  }
+};
+
+
 export const getAllStoreReviews = async (
     storeId: number,
     cursor: number
@@ -93,7 +111,7 @@ export const getAllStoreReviews = async (
         },
       },
       where: {
-        store_id: storeId,
+        storeId: storeId,
         id: {
           gt: cursor,
         },

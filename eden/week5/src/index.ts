@@ -24,6 +24,7 @@ app.post("/api/v1/users/signup", handleUserSignUp);
 // {
 //   "email": "jerry@example.com",
 //   "name": "제리",
+//   "password": "password123", 
 //   "gender": "F",
 //   "birth": "2025-03-08",
 //   "address": "주소1",

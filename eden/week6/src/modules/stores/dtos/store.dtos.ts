@@ -1,7 +1,9 @@
+
+import { StoreFoodCategory } from '../../../generated/prisma/enums';
 // 요청 본문의 타입을 정의
 export interface AddStoreRequestDTO {
   name: string;
-  foodCategory: string;
+  foodCategory: StoreFoodCategory;
 }
 
 // 응답 타입을 정의 
@@ -9,7 +11,7 @@ export interface StoreResponseDTO {
   id: number;
   name: string;
   region: string; 
-  foodCategory: string;
+  foodCategory: StoreFoodCategory;
 }
 
 export const responseFromStore = (store: any) => {

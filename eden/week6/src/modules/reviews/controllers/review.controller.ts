@@ -6,17 +6,15 @@ import { createReview, listStoreReviews } from "../services/review.service";
 import { listMyReviews } from "../services/review.service.js";
 
 export const handleAddReview = async (req: Request, res: Response, next: NextFunction) => {
-  const { storeId: rawStoreId } = req.params;
-    
-  if (typeof rawStoreId !== 'string') {
-    return res.status(StatusCodes.BAD_REQUEST).json({ message: "유효하지 않은 가게 ID입니다." });
-  }
-
-  const storeId = parseInt(rawStoreId, 10);
-  
  
-  // 요청 본문 전체를 DTO 타입으로 받음
+  
+  const storeId =Number(req.params.storeId)
   const reviewData: AddReviewRequestDTO = req.body;
+
+  // storeId가 유효한 숫자인지 확인
+  if (isNaN(storeId)) {
+    return res.status(StatusCodes.BAD_REQUEST).json({ message: "유효한 storeId가 필요합니다." });
+  }
 
   // 본문에 userId가 있는지 간단히 확인
   if (reviewData.userId === undefined) {
@@ -66,8 +64,8 @@ export const handleListStoreReviews = async (
     const storeId = parseInt(req.params.storeId as string, 10);
     const cursor =
     typeof req.query.cursor === "string"
-      ? parseInt(req.query.cursor, 10)
-      : 0;
+      ? parseInt(req.query.cursor, 10): 0;
+    if(cursor==0)res.status(StatusCodes.BAD_REQUEST).json({ message: "유효한 cursor가 필요합니다." });
 
     const reviews = await listStoreReviews(storeId, cursor);
 

@@ -115,7 +115,41 @@
 				"type": "object",
 				"additionalProperties": false
 			},
-			"ApiResponse__id-any--name-any--region-any--foodCategory-any__": {
+			"StoreFoodCategory": {
+				"type": "string",
+				"enum": [
+					"KOREAN",
+					"CHINESE",
+					"JAPANESE",
+					"WESTERN"
+				]
+			},
+			"StoreResponseDTO": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"name": {
+						"type": "string"
+					},
+					"region": {
+						"type": "string"
+					},
+					"foodCategory": {
+						"$ref": "#/components/schemas/StoreFoodCategory"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"region",
+					"foodCategory"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_StoreResponseDTO_": {
 				"properties": {
 					"resultType": {
 						"type": "string",
@@ -132,19 +166,7 @@
 						"nullable": true
 					},
 					"data": {
-						"properties": {
-							"foodCategory": {},
-							"region": {},
-							"name": {},
-							"id": {}
-						},
-						"required": [
-							"foodCategory",
-							"region",
-							"name",
-							"id"
-						],
-						"type": "object"
+						"$ref": "#/components/schemas/StoreResponseDTO"
 					}
 				},
 				"required": [
@@ -154,15 +176,6 @@
 				],
 				"type": "object",
 				"additionalProperties": false
-			},
-			"StoreFoodCategory": {
-				"type": "string",
-				"enum": [
-					"KOREAN",
-					"CHINESE",
-					"JAPANESE",
-					"WESTERN"
-				]
 			},
 			"AddStoreRequestDTO": {
 				"properties": {
@@ -339,7 +352,7 @@
 						"content": {
 							"application/json": {
 								"schema": {
-									"$ref": "#/components/schemas/ApiResponse__id-any--name-any--region-any--foodCategory-any__"
+									"$ref": "#/components/schemas/ApiResponse_StoreResponseDTO_"
 								}
 							}
 						}

@@ -12,32 +12,30 @@ export interface StoreResponseDto {
 }
 
 
-//응답 데이터의 단일 리뷰 항목 타입 정의
-interface MyReview {
+// 응답 데이터의 단일 리뷰 항목 타입 정의
+export interface MyReview {
+  id: number;
+  rating: number;
+  comment: string;
+  createdAt: Date;
+  store: {
     id: number;
-    rating: number;
-    comment: string;
-    createdAt: Date;
-    store: {
-        name: string;
-        address: string;
-    }
+    name: string;
+  };
 }
 
-// 최종 응답 데이터 타입 정의 (리뷰 배열)
-export type ListMyReviewsResponse = MyReview[];
 
 
 // 레포지토리에서 받은 데이터를 API 응답 형태로 변환하는 함수
-export const responseFromMyReviews = (data: any[]): ListMyReviewsResponse => {
+export const responseFromMyReviews = (data: MyReview[]): MyReview[] => {
     return data.map(review => ({
         id: review.id,
         rating: review.rating,
         comment: review.comment,
         createdAt: review.createdAt,
         store: {
+            id: review.store.id,
             name: review.store.name,
-            address: review.store.address,
         }
     }));
 }

@@ -1,3 +1,4 @@
+
 // 미션 추가 요청 본문의 타입을 정의합니다.
 export interface AddMissionRequestDTO {
   content: string;
@@ -16,51 +17,44 @@ export interface ListStoreMissionsRequestParams {
 }
 
 // 가게 미션 응답 데이터의 단일 미션 항목 타입 정의
-interface Mission {
+
+
+// 가게 미션 최종 응답 데이터 타입 정의 
+export type ListStoreMissionsResponse = handleMission[];
+
+export interface handleMission {
     id: number;
     point: number;
     content: string;
-    deadline: Date;
+    expireAt: Date;
 }
 
-// 가게 미션 최종 응답 데이터 타입 정의 
-export type ListStoreMissionsResponse = Mission[];
-
-// 가게 미션 레포지토리에서 받은 데이터를 API 응답 형태로 변환하는 함수
-export const responseFromStoreMissions = (data: any[]): ListStoreMissionsResponse => {
-    return data.map(mission => ({
-        id: mission.id,
-        point: mission.point,
-        content: mission.content,
-        deadline: mission.expired_at,
-    }));
-}
 //진행중인 미션 데이터 타입정의
-interface UserMission {
+export interface handleUserMission {
   id: number;
-  store_name: string;
+  storeName: string;
   content: string;
   point: number; 
-  deadline: Date;
+  expireAt: Date;
 }
 //최종 응답 데이터
-export type ListUserMissionsResponse=UserMission[];
+export type ListUserMissionsResponse=handleUserMission[];
 //진행중인 미션 응답 데이터 타입 정의
-export const responseFromUserMissions = (data: any[]): ListUserMissionsResponse => {
-  
-  return data.map(item => ({
-    id: item.id, 
-    
-    store_name: item.mission.store.name,
-    content: item.mission.content,
-    
-    point: item.mission.point,
-    deadline: item.mission.expired_at,
+export const responseFromStoreMissions = (data: handleMission[]): ListStoreMissionsResponse => { 
+  return data.map(mission => ({
+    id: Number(mission.id), 
+    point: mission.point,
+    content: mission.content,
+    expireAt: mission.expireAt, 
   }));
-}
+};
+
 export const responseFromChallenge = (userMissionId: number) => {
   return {
     newUserMissionId: userMissionId
   };
 };
 
+export const responseFromUserMissions=(mission: handleMission[])=>{
+  
+}
