@@ -1,0 +1,194 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id                  BigInt                @id @default(autoincrement())
+  name                String                @db.VarChar(50)
+  gender              String                @db.VarChar(1)
+  birth               DateTime              @db.Date
+  address             String                @db.VarChar(50)
+  email               String?               @db.VarChar(20)
+  status              UserStatus?           @default(normal)
+  withdrawAt          DateTime?             @map("withdraw_at") @db.DateTime(1)
+  signupAt            DateTime?             @map("signup_at") @default(now()) @db.DateTime(6)
+  totalPoint          Int?                  @map("total_point") @default(0)
+  phoneNumber         String?               @map("phone_number") @db.VarChar(15)
+  detailAddress       String?               @map("detail_address") @db.VarChar(255)
+  password            String                @db.VarChar(255)
+  inquiries           Inquiry[]
+  reviews             Review[]
+  userFavorCategories UserFavorCategory[]
+  userMissions        UserMission[]
+  userRegionPoints    UserRegionPoint[]
+
+  @@map("user")
+}
+
+model FoodCategory {
+  id                  Int                 @id @default(autoincrement())
+  name                String              @db.VarChar(100)
+  userFavorCategories UserFavorCategory[]
+
+  @@map("food_category")
+}
+
+model UserFavorCategory {
+  id             Int          @id @default(autoincrement())
+  userId         BigInt       @map("user_id")
+  foodCategoryId Int          @map("food_category_id")
+  foodCategory   FoodCategory @relation(fields: [foodCategoryId], references: [id], onDelete: Cascade, map: "fk_food_category")
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade, map: "fk_user")
+
+  @@index([foodCategoryId], map: "f_category_id_idx")
+  @@index([userId], map: "user_id_idx")
+  @@map("user_favor_category")
+}
+
+model Inquiry {
+  id           BigInt         @id @default(autoincrement())
+  userId       BigInt         @map("user_id")
+  title        String         @db.VarChar(100)
+  comment      String?        @db.Text
+  createdAt    DateTime?      @map("created_at") @default(now()) @db.DateTime(6)
+  replyAt      DateTime?      @map("reply_at") @db.DateTime(6)
+  user         User           @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "inquiry_ibfk_1")
+  inquiryReply InquiryReply[]
+
+  @@index([userId], map: "user_id")
+  @@map("inquiry")
+}
+
+model InquiryReply {
+  id        BigInt  @id @default(autoincrement())
+  inquiryId BigInt  @map("inquiry_id")
+  reply     String? @db.Text
+  inquiry   Inquiry @relation(fields: [inquiryId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "inquiry_reply_ibfk_1")
+
+  @@index([inquiryId], map: "inquiry_id")
+  @@map("inquiry_reply")
+}
+
+model Mission {
+  id           BigInt        @id @default(autoincrement())
+  storeId      BigInt        @map("store_id")
+  content      String        @db.VarChar(100)
+  createdAt    DateTime?     @map("created_at") @default(now()) @db.DateTime(6)
+  updatedAt    DateTime?     @map("updated_at") @default(now()) @db.DateTime(6)
+  expireAt     DateTime?     @map("expire_at") @db.DateTime(6)
+  point        Int?          @default(0)
+  store        Store         @relation(fields: [storeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "mission_ibfk_1")
+  userMissions UserMission[]
+
+  @@index([storeId], map: "store_id")
+  @@map("mission")
+}
+
+model Region {
+  id               BigInt            @id @default(autoincrement())
+  name             String            @db.VarChar(50)
+  stores           Store[]
+  userRegionPoints UserRegionPoint[]
+
+  @@map("region")
+}
+
+model Review {
+  id          BigInt        @id @default(autoincrement())
+  storeId     BigInt        @map("store_id")
+  userId      BigInt        @map("user_id")
+  rating      Float         @db.Float
+  comment     String?       @db.Text
+  createdAt   DateTime?     @map("created_at") @default(now()) @db.DateTime(6)
+  updatedAt   DateTime?     @map("updated_at") @default(now()) @db.DateTime(6)
+  store       Store         @relation(fields: [storeId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_1")
+  user        User          @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_ibfk_2")
+  reviewReply ReviewReply[]
+
+  @@index([storeId], map: "store_id")
+  @@index([userId], map: "user_id")
+  @@map("review")
+}
+
+model ReviewReply {
+  id       BigInt @id @default(autoincrement())
+  reviewId BigInt @map("review_id")
+  content  String @db.Text
+  review   Review @relation(fields: [reviewId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "review_reply_ibfk_1")
+
+  @@index([reviewId], map: "review_id")
+  @@map("review_reply")
+}
+
+model Store {
+  id           BigInt            @id @default(autoincrement())
+  foodCategory StoreFoodCategory @map("food_category")
+  regionId     BigInt            @map("region_id")
+  name         String            @db.VarChar(50)
+  createdAt    DateTime?         @map("created_at") @default(now()) @db.DateTime(6)
+  updatedAt    DateTime?         @map("updated_at") @default(now()) @db.DateTime(6)
+  field        String?           @map("Field") @db.VarChar(255)
+  missions     Mission[]
+  reviews      Review[]
+  region       Region            @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "store_ibfk_1")
+
+  @@index([regionId], map: "region_id")
+  @@map("store")
+}
+
+model UserMission {
+  id          BigInt            @id @default(autoincrement())
+  userId      BigInt            @map("user_id")
+  missionId   BigInt            @map("mission_id")
+  status      UserMissionStatus @default(uncompleted)
+  completedAt DateTime?         @map("completed_at") @db.DateTime(6)
+  user        User              @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_mission_ibfk_1")
+  mission     Mission           @relation(fields: [missionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_mission_ibfk_2")
+
+  @@index([missionId], map: "mission_id")
+  @@index([userId], map: "user_id")
+  @@map("user_mission")
+}
+
+model UserRegionPoint {
+  id                  BigInt @id @default(autoincrement())
+  userId              BigInt @map("user_id")
+  regionId            BigInt @map("region_id")
+  clearCount          Int?   @map("clear_count") @default(0)
+  rewardReceivedCount Int?   @map("reward_received_count") @default(0)
+  user                User   @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_region_point_ibfk_1")
+  region              Region @relation(fields: [regionId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "user_region_point_ibfk_2")
+
+  @@index([regionId], map: "region_id")
+  @@index([userId], map: "user_id")
+  @@map("user_region_point")
+}
+
+enum StoreFoodCategory {
+  KOREAN
+  CHINESE
+  JAPANESE
+  WESTERN
+
+  @@map("store_food_category")
+}
+
+enum UserMissionStatus {
+  COMPLETED
+  uncompleted
+  CHALLENGING
+
+  @@map("user_mission_status")
+}
+
+enum UserStatus {
+  normal
+  withdrawn
+
+  @@map("user_status")
+}

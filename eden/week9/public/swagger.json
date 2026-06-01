@@ -1,0 +1,1731 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"UserSignUpResponse": {
+				"properties": {
+					"email": {
+						"type": "string",
+						"nullable": true,
+						"example": "example@naver.com"
+					},
+					"name": {
+						"type": "string",
+						"nullable": true,
+						"example": "홍길동"
+					},
+					"preferCategory": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array",
+						"example": [
+							1,
+							2
+						]
+					}
+				},
+				"required": [
+					"email",
+					"name",
+					"preferCategory"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_UserSignUpResponse_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"$ref": "#/components/schemas/UserSignUpResponse"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserErrorResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"example": false
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"example": 409
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"statusCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserSignUpRequest": {
+				"properties": {
+					"email": {
+						"type": "string",
+						"description": "유저 이메일 (로그인 시 사용)",
+						"example": "example@naver.com"
+					},
+					"name": {
+						"type": "string",
+						"description": "유저 이름",
+						"example": "홍길동"
+					},
+					"password": {
+						"type": "string",
+						"description": "유저 비밀번호 (로그인 시 사용)",
+						"example": "password123"
+					},
+					"gender": {
+						"type": "string",
+						"description": "유저 성별",
+						"example": "남"
+					},
+					"birth": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "string",
+								"format": "date-time"
+							}
+						],
+						"description": "유저 생년월일 (문자열 또는 Date 객체)",
+						"example": "1990-01-01"
+					},
+					"address": {
+						"type": "string",
+						"description": "유저 주소 (선택)",
+						"example": "서울시 강남구 역삼동"
+					},
+					"detailAddress": {
+						"type": "string",
+						"description": "유저 상세 주소 (선택)",
+						"example": "101동 202호"
+					},
+					"phoneNumber": {
+						"type": "string",
+						"description": "유저 전화번호",
+						"example": "010-1234-5678"
+					},
+					"preferences": {
+						"items": {
+							"type": "number",
+							"format": "double"
+						},
+						"type": "array",
+						"description": "선호 카테고리 ID 배열 (예: [1, 2])",
+						"example": [
+							1,
+							2
+						]
+					}
+				},
+				"required": [
+					"email",
+					"name",
+					"password",
+					"gender",
+					"birth",
+					"phoneNumber",
+					"preferences"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserDto": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double"
+					},
+					"email": {
+						"type": "string",
+						"nullable": true
+					},
+					"name": {
+						"type": "string",
+						"nullable": true
+					},
+					"gender": {
+						"type": "string",
+						"nullable": true
+					},
+					"birth": {
+						"type": "string",
+						"format": "date-time",
+						"nullable": true
+					},
+					"address": {
+						"type": "string",
+						"nullable": true
+					},
+					"detailAddress": {
+						"type": "string",
+						"nullable": true
+					},
+					"phoneNumber": {
+						"type": "string",
+						"nullable": true
+					}
+				},
+				"required": [
+					"id",
+					"email",
+					"name",
+					"gender",
+					"birth",
+					"address",
+					"detailAddress",
+					"phoneNumber"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_UserDto_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"$ref": "#/components/schemas/UserDto"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"UserUpdateRequest": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "유저 이름",
+						"example": "홍길동"
+					},
+					"gender": {
+						"type": "string",
+						"description": "유저 성별",
+						"example": "남"
+					},
+					"birth": {
+						"anyOf": [
+							{
+								"type": "string"
+							},
+							{
+								"type": "string",
+								"format": "date-time"
+							}
+						],
+						"description": "유저 생년월일",
+						"example": "1990-01-01"
+					},
+					"address": {
+						"type": "string",
+						"description": "유저 주소",
+						"example": "서울시 강남구 역삼동"
+					},
+					"detailAddress": {
+						"type": "string",
+						"description": "유저 상세 주소",
+						"example": "101동 202호"
+					},
+					"phoneNumber": {
+						"type": "string",
+						"description": "유저 전화번호",
+						"example": "010-1234-5678"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StoreFoodCategory": {
+				"type": "string",
+				"enum": [
+					"KOREAN",
+					"CHINESE",
+					"JAPANESE",
+					"WESTERN"
+				]
+			},
+			"StoreResponseDTO": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"example": 1
+					},
+					"name": {
+						"type": "string",
+						"example": "맛있는 가게"
+					},
+					"region": {
+						"type": "string",
+						"example": "서울"
+					},
+					"foodCategory": {
+						"$ref": "#/components/schemas/StoreFoodCategory",
+						"example": "KOREAN"
+					}
+				},
+				"required": [
+					"id",
+					"name",
+					"region",
+					"foodCategory"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_StoreResponseDTO_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"$ref": "#/components/schemas/StoreResponseDTO"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StoreErrorResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"example": false
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"example": 409
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"statusCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AddStoreRequestDTO": {
+				"properties": {
+					"name": {
+						"type": "string",
+						"description": "가게 이름",
+						"example": "맛있는 가게"
+					},
+					"foodCategory": {
+						"$ref": "#/components/schemas/StoreFoodCategory",
+						"description": "음식 카테고리",
+						"example": "KOREAN"
+					}
+				},
+				"required": [
+					"name",
+					"foodCategory"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__newReviewId-number__": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"properties": {
+							"newReviewId": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"newReviewId"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReviewErrorResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"example": false
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"example": 404
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"statusCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AddReviewRequestDTO": {
+				"properties": {
+					"rating": {
+						"type": "number",
+						"format": "double",
+						"description": "평점",
+						"example": 4
+					},
+					"comment": {
+						"type": "string",
+						"description": "리뷰 내용",
+						"example": "맛있어요!"
+					}
+				},
+				"required": [
+					"rating",
+					"comment"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MyReview": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"example": 1
+					},
+					"rating": {
+						"type": "number",
+						"format": "double",
+						"example": 4
+					},
+					"comment": {
+						"type": "string",
+						"example": "맛있어요!"
+					},
+					"createdAt": {
+						"type": "string",
+						"format": "date-time",
+						"example": "2024-01-01T00:00:00.000Z"
+					},
+					"store": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "맛있는 가게"
+							},
+							"id": {
+								"type": "number",
+								"format": "double",
+								"example": 1
+							}
+						},
+						"required": [
+							"name",
+							"id"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"rating",
+					"comment",
+					"createdAt",
+					"store"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_MyReview-Array_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/MyReview"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReviewItem": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"example": 1
+					},
+					"comment": {
+						"type": "string",
+						"example": "정말 맛있어요!"
+					},
+					"store": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "맛있는 가게"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					},
+					"user": {
+						"properties": {
+							"name": {
+								"type": "string",
+								"example": "홍길동"
+							}
+						},
+						"required": [
+							"name"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"id",
+					"comment",
+					"store",
+					"user"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ReviewListResponse": {
+				"properties": {
+					"data": {
+						"items": {
+							"$ref": "#/components/schemas/ReviewItem"
+						},
+						"type": "array"
+					},
+					"pagination": {
+						"properties": {
+							"cursor": {
+								"type": "number",
+								"format": "double",
+								"nullable": true,
+								"example": 5
+							}
+						},
+						"required": [
+							"cursor"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"data",
+					"pagination"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse_ReviewListResponse_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"$ref": "#/components/schemas/ReviewListResponse"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__newMissionId-number__": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"properties": {
+							"newMissionId": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"newMissionId"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"MissionErrorResponse": {
+				"properties": {
+					"success": {
+						"type": "boolean",
+						"example": false
+					},
+					"statusCode": {
+						"type": "number",
+						"format": "double",
+						"example": 404
+					},
+					"data": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					}
+				},
+				"required": [
+					"success",
+					"statusCode",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"AddMissionRequestDTO": {
+				"properties": {
+					"content": {
+						"type": "string",
+						"description": "미션 내용",
+						"example": "가게 방문하기"
+					},
+					"point": {
+						"type": "number",
+						"format": "double",
+						"description": "미션 포인트",
+						"example": 100
+					}
+				},
+				"required": [
+					"content",
+					"point"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"handleMission": {
+				"properties": {
+					"id": {
+						"type": "number",
+						"format": "double",
+						"example": 1
+					},
+					"point": {
+						"type": "number",
+						"format": "double",
+						"example": 100
+					},
+					"content": {
+						"type": "string",
+						"example": "가게 방문하기"
+					},
+					"expireAt": {
+						"type": "string",
+						"format": "date-time",
+						"example": "2024-12-31T23:59:59.000Z"
+					}
+				},
+				"required": [
+					"id",
+					"point",
+					"content",
+					"expireAt"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ListStoreMissionsResponse": {
+				"items": {
+					"$ref": "#/components/schemas/handleMission"
+				},
+				"type": "array"
+			},
+			"ApiResponse_ListStoreMissionsResponse_": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"$ref": "#/components/schemas/ListStoreMissionsResponse"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"ApiResponse__newUserMissionId-number__": {
+				"properties": {
+					"resultType": {
+						"type": "string",
+						"enum": [
+							"SUCCESS"
+						],
+						"nullable": false
+					},
+					"error": {
+						"type": "number",
+						"enum": [
+							null
+						],
+						"nullable": true
+					},
+					"data": {
+						"properties": {
+							"newUserMissionId": {
+								"type": "number",
+								"format": "double"
+							}
+						},
+						"required": [
+							"newUserMissionId"
+						],
+						"type": "object"
+					}
+				},
+				"required": [
+					"resultType",
+					"error",
+					"data"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {}
+	},
+	"info": {
+		"title": "",
+		"contact": {}
+	},
+	"paths": {
+		"/users/signup": {
+			"post": {
+				"operationId": "HandleUserSignUp",
+				"responses": {
+					"200": {
+						"description": "회원가입 성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_UserSignUpResponse_"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "이미 존재하는 이메일입니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "잘못된 요청(유효성 검증 실패",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "회원가입 API",
+				"summary": "회원가입을 처리하는 엔드포인트입니다.",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"description": "회원가입에 필요한 정보가 담긴 객체",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserSignUpRequest",
+								"description": "회원가입에 필요한 정보가 담긴 객체"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/users/guest": {
+			"get": {
+				"operationId": "HandleGuestPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/login": {
+			"get": {
+				"operationId": "HandleLoginPage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/mypage": {
+			"get": {
+				"operationId": "HandleMypage",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/set-login": {
+			"get": {
+				"operationId": "HandleSetLogin",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/set-logout": {
+			"get": {
+				"operationId": "HandleSetLogout",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/users/me": {
+			"patch": {
+				"operationId": "UpdateMe",
+				"responses": {
+					"200": {
+						"description": "수정 성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_UserDto_"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "인증이 필요합니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "존재하지 않는 사용자입니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/UserErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "내 정보 수정 API",
+				"summary": "로그인한 사용자 본인의 정보를 수정하는 엔드포인트입니다.",
+				"tags": [
+					"Users"
+				],
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/UserUpdateRequest"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/stores/{regionId}": {
+			"post": {
+				"operationId": "AddStore",
+				"responses": {
+					"201": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_StoreResponseDTO_"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "이미 존재하는 가게입니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StoreErrorResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "잘못된 요청(유효성 검증 실패",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StoreErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StoreErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "가게생성 API",
+				"summary": "가게를 만드는 엔드포인트입니다.",
+				"tags": [
+					"Stores"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "가게가 속할 지역의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "regionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"description": "가게 생성에 필요한 정보가 담긴 객체",
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AddStoreRequestDTO",
+								"description": "가게 생성에 필요한 정보가 담긴 객체"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/reviews/{storeId}": {
+			"post": {
+				"operationId": "AddReview",
+				"responses": {
+					"201": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__newReviewId-number__"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "이미 존재하는 리뷰입니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					},
+					"422": {
+						"description": "잘못된 요청(유효성 검증 실패",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "특정 가게에 리뷰 추가",
+				"summary": "특정 가게에 리뷰를 추가하는 엔드포인트입니다.",
+				"tags": [
+					"Reviews"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "리뷰를 추가할 대상 가게의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "storeId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AddReviewRequestDTO"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "ListStoreReviews",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ReviewListResponse_"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "특정 가게에 리뷰 목록조회",
+				"summary": "특정 가게에 리뷰목록을 조회하는 엔드포인트입니다.",
+				"tags": [
+					"Reviews"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "리뷰 목록을 조회할 대상 가게의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "storeId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					},
+					{
+						"description": "페이지네이션을 위한 커서 값 (옵션)",
+						"in": "query",
+						"name": "cursor",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/reviews/my": {
+			"get": {
+				"operationId": "ListMyReviews",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_MyReview-Array_"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ReviewErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "내가 작성한 리뷰 목록 조회",
+				"summary": "내가 작성한 리뷰 목록을 조회하는 엔드포인트입니다.",
+				"tags": [
+					"Reviews"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/missions/stores/{storeId}": {
+			"post": {
+				"operationId": "AddMission",
+				"responses": {
+					"201": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__newMissionId-number__"
+								}
+							}
+						}
+					},
+					"401": {
+						"description": "인증이 필요합니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"403": {
+						"description": "관리자만 접근 가능합니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "특정 가게에 미션 추가 (관리자 전용)",
+				"summary": "특정 가게에 미션을 추가하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "미션을 추가할 대상 가게의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "storeId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/AddMissionRequestDTO"
+							}
+						}
+					}
+				}
+			},
+			"get": {
+				"operationId": "ListStoreMissions",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ListStoreMissionsResponse_"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "특정 가게에 미션 목록조회",
+				"summary": "특정 가게에 미션목록을 조회하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "미션 목록을 조회할 대상 가게의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "storeId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/missions/{missionId}/challenge": {
+			"post": {
+				"operationId": "ChallengeMission",
+				"responses": {
+					"201": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__newUserMissionId-number__"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"409": {
+						"description": "이미 진행 중인 미션입니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "유저가 미션에 도전",
+				"summary": "로그인한 유저가 미션에 도전하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "도전할 미션의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "missionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/missions/my/challenging": {
+			"get": {
+				"operationId": "ListUserChallengingMissions",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ListStoreMissionsResponse_"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "내가 진행중인 미션목록",
+				"summary": "로그인한 유저의 진행중인 미션목록을 조회하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": []
+			}
+		},
+		"/missions/{missionId}/complete": {
+			"patch": {
+				"operationId": "CompleteMission",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse__newUserMissionId-number__"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "진행중인 미션 완료 처리",
+				"summary": "진행중인 미션을 완료 처리하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": [
+					{
+						"description": "완료 처리할 미션의 고유 식별 번호 (ID)",
+						"in": "path",
+						"name": "missionId",
+						"required": true,
+						"schema": {
+							"format": "double",
+							"type": "number"
+						}
+					}
+				]
+			}
+		},
+		"/missions/my/completed": {
+			"get": {
+				"operationId": "ListUserCompletedMissions",
+				"responses": {
+					"200": {
+						"description": "성공",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/ApiResponse_ListStoreMissionsResponse_"
+								}
+							}
+						}
+					},
+					"404": {
+						"description": "정보가 유효하지 않습니다",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					},
+					"500": {
+						"description": "서버 내부 오류",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/MissionErrorResponse"
+								}
+							}
+						}
+					}
+				},
+				"description": "내가 완료한 미션 목록 조회",
+				"summary": "로그인한 유저의 완료한 미션목록을 조회하는 엔드포인트입니다.",
+				"tags": [
+					"Missions"
+				],
+				"security": [],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "/api/v1"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+{
+  "entryFile": "src/index.ts",
+  "noImplicitAdditionalProperties": "throw-on-extras",
+  "controllerPathGlobs": [
+    "src/**/*.controller.ts"
+  ],
+  "spec": {
+    "outputDirectory": "public",
+    "specVersion": 3,
+     "basePath": "/api/v1",
+     "info": {
+            "title": "UMC 10th 스터디 API 명세서",
+            "version": "1.0.0"
+          } 
+
+
+  },
+  "routes": {
+    "routesDir": "src/generated"
+  }
+}
+
