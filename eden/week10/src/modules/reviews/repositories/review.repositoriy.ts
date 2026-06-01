@@ -4,12 +4,12 @@ import { AddReviewRequestDTO, MyReview, ReviewItem, StoreResponseDto } from "../
 
 
 //  리뷰를 데이터베이스에 추가하는 함수
-export const addReview = async (storeId: number, data:AddReviewRequestDTO): Promise<number> => {
+export const addReview = async (storeId: number, userId: number, data: AddReviewRequestDTO): Promise<number> => {
   try {
     const newReview = await prisma.review.create({
       data: {
-        storeId: storeId, 
-        userId: data.userId,   
+        storeId: storeId,
+        userId: BigInt(userId),
         rating: data.rating,
         comment: data.comment,
       },
