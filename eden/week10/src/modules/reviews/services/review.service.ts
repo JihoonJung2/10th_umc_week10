@@ -16,8 +16,7 @@ export const createReview = async (storeId: number, userId: number, reviewData: 
     throw new UserNotExist("유저 정보가 유효하지 않습니다.");
   }
 
-  const newReviewId = await addReview(storeId, {
-    // userId,
+  const newReviewId = await addReview(storeId, userId, {
     rating: reviewData.rating,
     comment: reviewData.comment,
   });
