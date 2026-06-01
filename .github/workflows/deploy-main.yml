@@ -10,7 +10,6 @@ jobs:
     defaults:
       run:
         working-directory: eden/week10
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,14 +18,10 @@ jobs:
         with:
           node-version: "24"
           cache: "npm"
-
       - name: Install dependencies
         run: npm ci
       - name: Inject environment variables
-        run: |
-          cat > .env <<'EOF'
-          ${{ secrets.EC2_DOT_ENV }}
-          EOF
+        run: echo "$EC2_DOT_ENV" > .env
         env:
           EC2_DOT_ENV: ${{ secrets.EC2_DOT_ENV }}
       - name: Generate + Build
@@ -97,10 +92,7 @@ jobs:
               mv incoming current
               '
       - name: Create environment variables
-        run: |
-          ssh target "cat > /opt/app/umc10th/current/.env <<'EOF'
-          ${{ secrets.EC2_DOT_ENV }}
-          EOF"
+        run: ssh target "printf '%s' \"$EC2_DOT_ENV\" > /opt/app/umc10th/current/.env"
         env:
           EC2_DOT_ENV: ${{ secrets.EC2_DOT_ENV }}
       - name: Config systemd service file
@@ -126,7 +118,6 @@ jobs:
           ssh target 'sudo systemctl daemon-reload'
           ssh target 'sudo systemctl enable UMC_10th'
           ssh target 'sudo systemctl restart UMC_10th'
-
       - name: Check service status
         run: |
           ssh target 'sudo systemctl status UMC_10th -l --no-pager'
